@@ -10,6 +10,6 @@
         public long ProximaQuilometragem { get; set; }
         public DateTime Data { get; set; }
         public bool ManutencaoCorretiva { get; set; }
-        public Carro Carro { get; set; }
+        public Carro Carro { get; set; } = null!;
     }
 }

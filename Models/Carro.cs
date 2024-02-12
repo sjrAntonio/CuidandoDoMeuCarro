@@ -1,4 +1,6 @@
-﻿namespace CuidandoDoMeuCarro.Models
+﻿using System.Reflection.Metadata;
+
+namespace CuidandoDoMeuCarro.Models
 {
     public class Carro
     {
@@ -11,7 +13,8 @@
         public int AnoFabricacao { get; set; }
         public int AnoModelo { get; set; }
         public string CodigoFipe { get; set; }
-        public Motorista Motorista { get; set; }
-        public Montadora Montadora { get; set; }
+        public Motorista Motorista { get; set; } = null!;
+        public Montadora Montadora { get; set; } = null!;
+        public ICollection<Manutencao> Manutencoes { get; } = new List<Manutencao>();
     }
 }
