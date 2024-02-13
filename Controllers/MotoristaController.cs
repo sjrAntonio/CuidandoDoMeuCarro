@@ -1,4 +1,4 @@
-﻿using CuidandoDoMeuCarro.Models;
+﻿using CuidandoDoMeuCarro.BusinessRules;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CuidandoDoMeuCarro.API.Controllers
@@ -9,36 +9,37 @@ namespace CuidandoDoMeuCarro.API.Controllers
     public class MotoristaController : ControllerBase
     {
 
+        private readonly MotoristaRules rules;
 
-        // GET: api/<MotoristaController>
+        public MotoristaController(MotoristaRules Rules)
+        {
+            rules = Rules;
+        }
+
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            return Ok();
+            var ret = rules.BuscaTodosMotoristas(null, null);
+            return Ok(ret.Result);
         }
 
-        // GET api/<MotoristaController>/5
-        [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        [HttpGet("{pageNumber:int}/pageSize/{pageSize:int}")]
+        public IActionResult GetAllPagination(int pageNumber, int pageSize)
         {
-
-            return Ok();
-
+            var ret = rules.BuscaTodosMotoristas(pageNumber, pageSize);
+            return Ok(ret.Result);
         }
 
-        // POST api/<MotoristaController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<MotoristaController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<MotoristaController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

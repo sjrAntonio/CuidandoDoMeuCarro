@@ -1,5 +1,11 @@
+using CuidandoDoMeuCarro.BusinessRules;
 using CuidandoDoMeuCarro.Data;
+using CuidandoDoMeuCarro.Data.IRepository;
+using CuidandoDoMeuCarro.Data.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -14,9 +20,15 @@ builder.Services.AddDbContext<DataContext>(
     context => context.UseSqlite(connectionString)
 );
 
+/**************************
+* Injecao de dependencias *
+**************************/
+builder.Services.AddScoped<IMotoristaRepository, MotoristaRepository>();
+
+builder.Services.AddScoped<MotoristaRules>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
